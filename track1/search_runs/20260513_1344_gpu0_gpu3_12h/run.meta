@@ -1,0 +1,8 @@
+launcher_pid=1729279
+started_at=2026-05-13T13:43:10+01:00
+hours=12
+out_dir=/home/mayin/fintech/track1/search_runs/20260513_1344_gpu0_gpu3_12h
+python=python
+gpu0_pid=1729293
+gpu3_pid=1729294
+finished_at=2026-05-14T01:38:13+01:00
