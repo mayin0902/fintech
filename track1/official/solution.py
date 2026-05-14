@@ -68,9 +68,9 @@ class MoEBlockOptimized(nn.Module):
         self.post_norm = nn.Module()
         self.post_norm.weight = nn.Parameter(torch.ones(self.hidden_size))
 
-        self.shared_chunk_size = int(os.getenv("MOE_SHARED_CHUNK_SIZE", "2048"))
-        self.expert_chunk_size = int(os.getenv("MOE_EXPERT_CHUNK_SIZE", "2048"))
-        self.use_checkpoint = os.getenv("MOE_USE_CHECKPOINT", "1") != "0"
+        self.shared_chunk_size = int(os.getenv("MOE_SHARED_CHUNK_SIZE", "131072"))
+        self.expert_chunk_size = int(os.getenv("MOE_EXPERT_CHUNK_SIZE", "131072"))
+        self.use_checkpoint = os.getenv("MOE_USE_CHECKPOINT", "0") != "0"
 
     def _checkpoint(self, fn, *args):
         if not self.training or not self.use_checkpoint:
