@@ -6,6 +6,7 @@
 - `solution.py`：选手提交模板，需实现 `MoEBlockOptimized`
 - `correctness_check.py`：正确性验证脚本
 - `benchmark.py`：显存和速度评测脚本
+- `48gb_tuning_strategy.md`：基于 24GB 搜索结果制定的 48GB 后续调参策略
 - `题面.md`：题面
 - `readme.md`：运行说明
 
