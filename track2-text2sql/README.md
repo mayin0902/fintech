@@ -60,6 +60,15 @@ flowchart LR
 | `scripts/ppo_objective_demo.py` | PPO policy/value clipped update 教学内核（非成果冒充） |
 | `scripts/serve_vllm.sh` | vLLM serving/前缀缓存的可调基线 |
 | `framework/` | Twinkle 框架 fork、Qwen3.5 LoRA/NPU 项目适配与归属说明 |
+| `docs/twinkle-framework-interview.md` | Twinkle 架构、分布式、GRPO/DPO/PPO、vLLM 权重同步的源码级面试讲义 |
+
+## 面试阅读顺序
+
+1. 先用 [docs/interview-guide.md](docs/interview-guide.md) 背熟项目的 30 秒和 2 分钟主线；
+2. 再沿 [docs/twinkle-framework-interview.md](docs/twinkle-framework-interview.md) 讲清 Twinkle 的数据层、执行层、分布式拓扑与 RL 训练循环；
+3. 最后用 [docs/post-training-and-inference.md](docs/post-training-and-inference.md) 补齐 PPO/DPO/GRPO 公式、vLLM、PagedAttention 和 KV Cache 工程细节。
+
+面试表达边界：可以说“基于 Twinkle 适配 verified-only Text-to-SQL LoRA/SFT，并把 PostgreSQL verifier 设计成可迁移到 GRPO/DPO 的 reward 接口”；不要把 Twinkle 上游源码说成个人原创，也不要把 97.32% 说成 GRPO 后的模型测试集准确率。
 
 ## 快速运行
 
@@ -91,7 +100,7 @@ python examples/postgres_reward_demo.py
 | GRPO | 同一问题一组 SQL 的相对 reward | 是 | 否 | 主方案；结果可验证且显存预算受限 |
 | PPO | reward + GAE/return | 是 | **是** | 通用但系统更重，作为理解 RLHF 的对照 |
 
-更完整的目标函数、训练时序、vLLM、PagedAttention 与 KV Cache 工程细节见 [docs/post-training-and-inference.md](docs/post-training-and-inference.md)。
+更完整的目标函数、训练时序、vLLM、PagedAttention 与 KV Cache 工程细节见 [docs/post-training-and-inference.md](docs/post-training-and-inference.md)；Twinkle 的对象关系、源码调用链和面试追问见 [docs/twinkle-framework-interview.md](docs/twinkle-framework-interview.md)。
 
 ## 简历写法
 

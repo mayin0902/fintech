@@ -18,6 +18,8 @@
 
 训练框架使用保留上游归属的 [`mayin0902/twinkle` fork](https://github.com/mayin0902/twinkle)，项目自有适配见 [`track2-text2sql/framework/`](track2-text2sql/framework/README.md)。
 
+源码级框架面试讲义见 [	rack2-text2sql/docs/twinkle-framework-interview.md](track2-text2sql/docs/twinkle-framework-interview.md)，覆盖 Twinkle 分层架构、分布式拓扑、SFT/DPO/GRPO/PPO、vLLM 权重同步及 Ascend NPU/HCCL 排障。
+
 其中包含：
 
 - PostgreSQL 只读/超时/时区一致的安全执行器；
@@ -39,4 +41,3 @@
 - `track1/results_2026-05-13_gpu0_gpu3.md`：GPU0/GPU3 本地参考测试结果
 - `track1/results_2026-05-13_48gb_gpu1.md`：48GB GPU1 调试结果和默认参数更新依据
 - `track1/赛道1_H20_A800最终实验策略_2026-05-17前.md`：H20/A800 官方尺度最终实验策略
-

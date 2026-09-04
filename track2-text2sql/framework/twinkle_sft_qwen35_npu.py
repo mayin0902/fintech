@@ -20,7 +20,7 @@ from twinkle import DeviceMesh, get_device_placement, get_logger
 from twinkle.data_format import Message, Trajectory
 from twinkle.dataloader import DataLoader
 from twinkle.dataset import Dataset, DatasetMeta
-from twinkle.kernel import kernelize_model
+from twinkle.kernel import kernelize
 from twinkle.model import TransformersModel
 from twinkle.preprocessor import Preprocessor
 from twinkle.utils.framework import Torch
@@ -124,8 +124,13 @@ def build_model(model_id: str, device_mesh: DeviceMesh) -> TransformersModel:
         device_mesh=device_mesh,
         strategy=os.getenv("MODEL_STRATEGY", "accelerate"),
     )
-    model.model._no_split_modules = {"Qwen3_5DecoderLayer"}
-    return kernelize_model(model, mode="train", device="npu")
+    decoder_layers = {
+        type(module).__name__
+        for module in model.model.modules()
+        if type(module).__name__.endswith("DecoderLayer")
+    }
+    model.model._no_split_modules = list(decoder_layers) or ["Qwen3_5DecoderLayer"]
+    return kernelize(model)
 
 
 def main() -> None:

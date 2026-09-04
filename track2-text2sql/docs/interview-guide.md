@@ -12,6 +12,12 @@
 4. **结果**：同一批 5,635 turn 从 2,061 条正确提升到 5,484 条正确。最大工程洞察是时区口径错误制造了 345 条假失败，说明 RL 前必须先校准 reward 环境。
 5. **后训练**：先用 verified-only 数据做 SFT/RFT 冷启动；再对每题采样 K 条，用执行 reward 做 GRPO；顽固模式把正确/错误候选组成 DPO 对。PPO 需要额外 critic，当前资源和可验证奖励场景下不优先。
 
+## Twinkle 框架 60 秒版本
+
+“Twinkle 把数据、模型、loss、采样器和分布式运行时做成解耦组件。同一份训练逻辑既能在 `torchrun` 本地进程组运行，也能通过 Ray 扩展，服务形态还可走 HTTP。SFT 路径是 Dataset 读取 verified-only JSONL，经 Preprocessor 和 Qwen 模板编码，由 DataLoader 按 DeviceMesh 切给各数据并行 rank，TransformersModel 在 FSDP/DP 下前后向，再由 optimizer group 做梯度累积、裁剪和保存。GRPO 则多了一条 rollout 环：vLLM 对同题采样一组 SQL，数据库执行器给 reward，GRPOAdvantage 做组内标准化，GRPOLoss 用 old/new policy ratio 做 clip；策略更新后必须把新权重同步给 sampler，并清掉由旧权重生成的 prefix/KV cache。我的工作是 Text-to-SQL 数据契约、NPU LoRA/SFT 适配和 execution reward 接口，不把 Twinkle 上游框架说成个人原创。”
+
+这段话的对象关系、源码落点、白板图和追问答案见 [Twinkle 框架源码级面试讲义](twinkle-framework-interview.md)。
+
 ## 高频追问
 
 ### 97.32% 是最终模型准确率吗？
@@ -57,4 +63,3 @@ PPO 通常训练 policy 和 value/critic，用 GAE 或 return 估计 advantage�
 ### vLLM 与 KV Cache 怎么讲？
 
 先讲公式和瓶颈，再讲开关：KV 每 token 的近似字节数是 `2 × 层数 × KV头数 × head_dim × dtype_bytes`；上下文越长、并发越大，KV 容量越先吃满。vLLM 用分页块按需分配，减少为最大长度预留产生的内部碎片，并用 continuous batching 提高 GPU 利用率。共享 system/schema 前缀时打开 prefix caching 可省 prefill；FP8 KV 大约降低一半缓存字节，但必须用真实 workload 复测精度、TTFT、TPOT 和吞吐。详见专项讲义。
-
