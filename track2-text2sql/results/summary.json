@@ -1,0 +1,32 @@
+{
+  "scope": "candidate/training-label SQL on an anonymized 5,635-turn benchmark",
+  "metric": "PostgreSQL execution-result exact match",
+  "timezone": "Asia/Shanghai",
+  "baseline": {
+    "correct": 2061,
+    "total": 5635,
+    "rate": 0.3657
+  },
+  "strong_model_pseudolabel": {
+    "correct": 4901,
+    "total": 5635,
+    "rate": 0.8697
+  },
+  "timezone_calibrated": {
+    "correct": 5246,
+    "total": 5635,
+    "rate": 0.9310
+  },
+  "verified_after_repair": {
+    "correct": 5484,
+    "total": 5635,
+    "rate": 0.9732
+  },
+  "repairs": {
+    "deterministic_rules": 173,
+    "model_generated_and_db_verified": 65,
+    "unresolved": 151
+  },
+  "disclosure": "Rates describe the SQL label/candidate curation pipeline, not the final model's held-out inference accuracy. Raw prompts, database rows, credentials, and model weights are intentionally excluded."
+}
+

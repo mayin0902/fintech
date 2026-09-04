@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+.env
+*.log
+artifacts/
+checkpoints/
+wandb/
+
+# Never commit databases, model weights, credentials, or private datasets.
+*.dump
+*.sql.gz
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*_token.txt
+*_cookies.txt
+

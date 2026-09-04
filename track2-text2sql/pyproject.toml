@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "text2sql-execution-feedback"
+version = "0.1.0"
+description = "Auditable Text-to-SQL execution feedback loop and post-training reference"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "mayin0902" }]
+dependencies = []
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.2,<4"]
+train = [
+  "datasets>=3.0",
+  "peft>=0.14",
+  "torch>=2.4",
+  "transformers>=4.50",
+  "trl>=0.25",
+]
+dev = ["pytest>=8.0", "ruff>=0.8"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/text2sql_feedback"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
