@@ -59,6 +59,7 @@ flowchart LR
 | `scripts/train_dpo.py` | execution-derived 偏好对的 DPO 入口 |
 | `scripts/ppo_objective_demo.py` | PPO policy/value clipped update 教学内核（非成果冒充） |
 | `scripts/serve_vllm.sh` | vLLM serving/前缀缓存的可调基线 |
+| `framework/` | Twinkle 框架 fork、Qwen3.5 LoRA/NPU 项目适配与归属说明 |
 
 ## 快速运行
 

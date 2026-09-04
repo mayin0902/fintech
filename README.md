@@ -14,7 +14,11 @@
                                   └── 反思纠错 ┘
 ```
 
-代码、复现实验、指标口径和面试讲义见 [`track2-text2sql/`](track2-text2sql/README.md)。其中包含：
+代码、复现实验、指标口径和面试讲义见 [`track2-text2sql/`](track2-text2sql/README.md)。
+
+训练框架使用保留上游归属的 [`mayin0902/twinkle` fork](https://github.com/mayin0902/twinkle)，项目自有适配见 [`track2-text2sql/framework/`](track2-text2sql/framework/README.md)。
+
+其中包含：
 
 - PostgreSQL 只读/超时/时区一致的安全执行器；
 - execution match、多重集合比对、稠密 reward 与 Agent retry loop；
