@@ -1,12 +1,21 @@
-name: ci
+name: text2sql-ci
 
 on:
   push:
+    paths:
+      - "track2-text2sql/**"
+      - ".github/workflows/text2sql-ci.yml"
   pull_request:
+    paths:
+      - "track2-text2sql/**"
+      - ".github/workflows/text2sql-ci.yml"
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: track2-text2sql
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
